@@ -15,8 +15,5 @@ class SMSView(TemplateView):
         except:
             oOrder = Order(phone = oPost['from'], data={"state":"WELCOMING"})
         context['aReturn'] = oOrder.handleInput(oPost['body'])
-        if oOrder.isDone():
-            oOrder.delete()
-        else:
-            oOrder.save()
+        oOrder.save()
         return self.render_to_response(context)
